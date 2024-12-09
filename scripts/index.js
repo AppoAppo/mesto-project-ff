@@ -23,13 +23,14 @@ function addCard(cardInfo, deleteFunction) {
 
   cardTitleElement.textContent = cardInfo.name;
 
-  cardDeleteButton.addEventListener("click", deleteFunction);
+  cardDeleteButton.addEventListener("click", () => deleteFunction(cardElement));
 
   return cardElement;
 }
 // @todo: Функция удаления карточки
 
-const deleteCard = (evt) => evt.target.closest(cardContainerSelector).remove();
+// const deleteCard = (evt) => evt.target.closest(cardContainerSelector).remove();
+const deleteCard = (cardElement) => cardElement.remove();
 
 // @todo: Вывести карточки на страницу
 

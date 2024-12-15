@@ -1,5 +1,10 @@
+import './pages/index.css';
+
+import { initialCards } from './cards';
+
 const cardContainerSelector = ".places__item";
 // @todo: Темплейт карточки
+
 
 const cardTemplate = document
   .querySelector("#card-template")

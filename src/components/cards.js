@@ -9,7 +9,7 @@ const cardTemplate = document
 
 // @todo: Функция создания карточки
 
-export const addCard = (cardInfo, handlers) => {
+const addCard = (cardInfo, handlers) => {
   const cardElement = cardTemplate.cloneNode(true);
 
   const cardImgElement = cardElement.querySelector(".card__image");
@@ -32,11 +32,13 @@ export const addCard = (cardInfo, handlers) => {
 };
 
 // Обработка Лайка
-export const handleLike = (cardElement) => {
+const handleLike = (cardElement) => {
   cardElement
     .querySelector(".card__like-button")
     .classList.toggle("card__like-button_is-active");
 };
 
 // Удаление карточки
-export const deleteCard = (cardElement) => cardElement.remove();
+const deleteCard = (cardElement) => cardElement.remove();
+
+export { deleteCard, handleLike, addCard };

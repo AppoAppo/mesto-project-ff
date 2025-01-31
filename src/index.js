@@ -6,7 +6,11 @@ import {
   handleLike,
   deleteCard,
 } from "./components/cards.js";
-import { openModal, closeModal } from "./components/modal.js";
+import {
+  openModal,
+  closeModal,
+  closePopupOverlay,
+} from "./components/modal.js";
 
 const listElem = document.querySelector(".places__list");
 
@@ -37,6 +41,9 @@ const profileElem = {
 const handleImgPopup = (cardInfo) => {
   const popupImgUrl = popups.image.querySelector(".popup__image");
   const popupImgCap = popups.image.querySelector(".popup__caption");
+  popups.image.addEventListener("click", (evt) =>
+    closePopupOverlay(evt, popups.image)
+  );
 
   openModal(popups.image);
 
@@ -87,6 +94,9 @@ document.querySelectorAll(".popup__close").forEach((elem) => {
 // Вешаем обработчик на кнопку добавить новую карточку
 buttons.add_card.addEventListener("click", (evt) => {
   popups.new_card.addEventListener("submit", handleAddNewCardSubmit);
+  popups.new_card.addEventListener("click", (evt) =>
+    closePopupOverlay(evt, popups.new_card)
+  );
   openModal(popups.new_card);
 });
 
@@ -96,5 +106,8 @@ buttons.edit_profile.addEventListener("click", (evt) => {
   profileInput.job.value = profileElem.job.textContent;
 
   popups.edit.addEventListener("submit", handleFormSubmit);
+  popups.edit.addEventListener("click", (evt) =>
+    closePopupOverlay(evt, popups.edit)
+  );
   openModal(popups.edit);
 });

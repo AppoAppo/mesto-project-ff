@@ -1,4 +1,3 @@
-import { openModal } from "../components/modal.js";
 
 const cardContainerSelector = ".places__item";
 // @todo: Темплейт карточки

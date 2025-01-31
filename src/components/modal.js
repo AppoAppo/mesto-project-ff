@@ -6,7 +6,7 @@ const popupCssClass = "popup_is-opened";
 function openModal(popup) {
   popup.classList.add(popupCssClass);
   document.addEventListener("keydown", (evt) => closePopupKey(evt, popup));
-  popup.addEventListener("click", (evt) => closePopupOverlay(evt, popup));
+  
 }
 
 function closeModal(popup) {

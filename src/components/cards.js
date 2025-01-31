@@ -1,4 +1,3 @@
-
 const cardContainerSelector = ".places__item";
 // @todo: Темплейт карточки
 
@@ -10,12 +9,7 @@ const cardTemplate = document
 
 // @todo: Функция создания карточки
 
-export const addCard = (
-  cardInfo,
-  deleteFunction,
-  likeFunction,
-  ImgPopupFunction
-) => {
+export const addCard = (cardInfo, handlers) => {
   const cardElement = cardTemplate.cloneNode(true);
 
   const cardImgElement = cardElement.querySelector(".card__image");
@@ -28,9 +22,11 @@ export const addCard = (
 
   cardTitleElement.textContent = cardInfo.name;
 
-  cardDeleteButton.addEventListener("click", () => deleteFunction(cardElement));
-  cardLikeButton.addEventListener("click", () => likeFunction(cardElement));
-  cardImgElement.addEventListener("click", () => ImgPopupFunction(cardInfo));
+  cardDeleteButton.addEventListener("click", () =>
+    handlers.delete(cardElement)
+  );
+  cardLikeButton.addEventListener("click", () => handlers.like(cardElement));
+  cardImgElement.addEventListener("click", () => handlers.imgPopup(cardInfo));
 
   return cardElement;
 };
@@ -44,31 +40,3 @@ export const handleLike = (cardElement) => {
 
 // Удаление карточки
 export const deleteCard = (cardElement) => cardElement.remove();
-
-export const initialCards = [
-  {
-    name: "Архыз",
-    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg",
-  },
-  {
-    name: "Челябинская область",
-    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg",
-  },
-  {
-    name: "Иваново",
-    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg",
-  },
-  {
-    name: "Камчатка",
-    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg",
-  },
-  {
-    name: "Холмогорский район",
-    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg",
-  },
-  {
-    name: "Байкал",
-    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg",
-  },
-];
-// @todo: Вывести карточки на страницу

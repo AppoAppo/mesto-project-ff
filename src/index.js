@@ -54,13 +54,6 @@ const popupImageElements = {
   caption: popups.image.querySelector(".popup__caption"),
 };
 
-// Набор обработчиков для карточки
-const callbacks = {
-  delete: deleteCard,
-  like: handleLike,
-  imgPopup: handleImgPopup,
-};
-
 //конфигурация валидации
 const validationConfig = {
   formSelector: ".popup__form",
@@ -110,6 +103,13 @@ const handleImgPopup = (cardInfo) => {
   popupImageElements.caption.textContent = cardInfo.name;
 
   openModal(popups.image);
+};
+
+// Набор обработчиков для карточки
+const callbacks = {
+  delete: deleteCard,
+  like: handleLike,
+  imgPopup: handleImgPopup,
 };
 
 // Функция обрабатывающая сохранение изменений в профиле

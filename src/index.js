@@ -48,11 +48,20 @@ const profileElement = {
   avatar: document.querySelector(".profile__image"),
 };
 
+//Объекты для попапа с картинкой
 const popupImageElements = {
   url: popups.image.querySelector(".popup__image"),
   caption: popups.image.querySelector(".popup__caption"),
 };
 
+// Набор обработчиков для карточки
+const callbacks = {
+  delete: deleteCard,
+  like: handleLike,
+  imgPopup: handleImgPopup,
+};
+
+//конфигурация валидации
 const validationConfig = {
   formSelector: ".popup__form",
   inputSelector: ".popup__input",
@@ -96,11 +105,11 @@ const changeButtonTextToSave = (evt) => {
 
 // Обработка попапа для картинки
 const handleImgPopup = (cardInfo) => {
-  openModal(popups.image);
-
   popupImageElements.url.src = cardInfo.link;
   popupImageElements.url.alt = cardInfo.name;
   popupImageElements.caption.textContent = cardInfo.name;
+
+  openModal(popups.image);
 };
 
 // Функция обрабатывающая сохранение изменений в профиле
@@ -160,13 +169,6 @@ const handleChangeAvatarSubmit = (evt) => {
       console.log(err);
     })
     .finally(() => restoreButtonText(button, buttonOriginalText));
-};
-
-// Набор обработчиков для карточки
-const callbacks = {
-  delete: deleteCard,
-  like: handleLike,
-  imgPopup: handleImgPopup,
 };
 
 // Функция добавления карточки с выбором места

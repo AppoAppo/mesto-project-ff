@@ -67,20 +67,24 @@ const validationConfig = {
 //функция для отображения карточек и данных пользователя
 const initData = () => {
   const initPromises = [getUserDataAPI(), getCardsAPI()];
-  Promise.all(initPromises).then((results) => {
-    const userData = results[0];
-    const cardsData = results[1];
-    profileElement.name.textContent = userData.name;
-    profileElement.job.textContent = userData.about;
-    profileElement.avatar.style.backgroundImage = `url('${userData.avatar}')`;
-    cardsData.forEach((item) => {
-      item.owner._id === userData._id
-        ? (item.deleteAvailable = true)
-        : (item.deleteAvailable = false);
-      item.liked = item.likes.some((elem) => elem._id === userData._id);
-      renderCard(item);
+  Promise.all(initPromises)
+    .then((results) => {
+      const userData = results[0];
+      const cardsData = results[1];
+      profileElement.name.textContent = userData.name;
+      profileElement.job.textContent = userData.about;
+      profileElement.avatar.style.backgroundImage = `url('${userData.avatar}')`;
+      cardsData.forEach((item) => {
+        item.owner._id === userData._id
+          ? (item.deleteAvailable = true)
+          : (item.deleteAvailable = false);
+        item.liked = item.likes.some((elem) => elem._id === userData._id);
+        renderCard(item);
+      });
+    })
+    .catch((err) => {
+      console.log(err);
     });
-  });
 };
 
 //восстановление текста на кнопке
@@ -90,10 +94,9 @@ const restoreButtonText = (button, buttonOriginalText) => {
 
 //текст кнопки на время сохранения изменений
 const changeButtonTextToSave = (evt) => {
-  const button = evt.target.querySelector(".popup__button");
-  const buttonOriginalText = button.textContent;
-  button.textContent = "Сохранение...";
-  return { button, buttonOriginalText };
+  const buttonOriginalText = evt.submitter.textContent;
+  evt.submitter.textContent = "Сохранение...";
+  return buttonOriginalText;
 };
 
 // Обработка попапа для картинки
@@ -115,7 +118,7 @@ const callbacks = {
 // Функция обрабатывающая сохранение изменений в профиле
 const handleProfileFormSubmit = (evt) => {
   evt.preventDefault();
-  const { button, buttonOriginalText } = changeButtonTextToSave(evt);
+  const buttonOriginalText = changeButtonTextToSave(evt);
   updateProfileAPI(
     forms.editProfile.name.value,
     forms.editProfile.description.value
@@ -128,13 +131,13 @@ const handleProfileFormSubmit = (evt) => {
     .catch((err) => {
       console.log(err);
     })
-    .finally(() => restoreButtonText(button, buttonOriginalText));
+    .finally(() => restoreButtonText(evt.submitter, buttonOriginalText));
 };
 
 // Функция обрабатывающая добавление новой карточки
 const handleAddNewCardSubmit = (evt) => {
   evt.preventDefault();
-  const { button, buttonOriginalText } = changeButtonTextToSave(evt);
+  const buttonOriginalText = changeButtonTextToSave(evt);
   const card = {
     name: forms.addNewCard["place-name"].value,
     link: forms.addNewCard.link.value,
@@ -151,13 +154,13 @@ const handleAddNewCardSubmit = (evt) => {
     .catch((err) => {
       console.log(err);
     })
-    .finally(() => restoreButtonText(button, buttonOriginalText));
+    .finally(() => restoreButtonText(evt.submitter, buttonOriginalText));
 };
 
 // Функция обрабатывающая добавление новой карточки
 const handleChangeAvatarSubmit = (evt) => {
   evt.preventDefault();
-  const { button, buttonOriginalText } = changeButtonTextToSave(evt);
+  const buttonOriginalText = changeButtonTextToSave(evt);
   changeAvatarAPI(forms.changeAvatar["link-avatar"].value)
     .then((result) => {
       profileElement.avatar.style.backgroundImage = `url('${forms.changeAvatar["link-avatar"].value}')`;
@@ -168,7 +171,7 @@ const handleChangeAvatarSubmit = (evt) => {
     .catch((err) => {
       console.log(err);
     })
-    .finally(() => restoreButtonText(button, buttonOriginalText));
+    .finally(() => restoreButtonText(evt.submitter, buttonOriginalText));
 };
 
 // Функция добавления карточки с выбором места

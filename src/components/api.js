@@ -20,9 +20,7 @@ const updateProfileAPI = (name, job) => {
       name: name,
       about: job,
     }),
-  }).then((res) => {
-    return checkResponse(res);
-  });
+  }).then(checkResponse);
 };
 
 //удаление карточки
@@ -33,9 +31,7 @@ const deleteCardAPI = (cardId) => {
       authorization: apiConfig.token,
       "Content-Type": "application/json",
     },
-  }).then((res) => {
-    return checkResponse(res);
-  });
+  }).then(checkResponse);
 };
 
 //создание карточки
@@ -50,9 +46,7 @@ const createCardAPI = (cardData) => {
       name: cardData.name,
       link: cardData.link,
     }),
-  }).then((res) => {
-    return checkResponse(res);
-  });
+  }).then(checkResponse);
 };
 
 //обновление аватара пользователя
@@ -66,9 +60,7 @@ const changeAvatarAPI = (avatarLink) => {
     body: JSON.stringify({
       avatar: avatarLink,
     }),
-  }).then((res) => {
-    return checkResponse(res);
-  });
+  }).then(checkResponse);
 };
 
 //отправка данных о нажатии кнопки like
@@ -82,9 +74,7 @@ const toggleLikeAPI = (cardId, likeActive) => {
         authorization: apiConfig.token,
       },
     }
-  ).then((res) => {
-    return checkResponse(res);
-  });
+  ).then(checkResponse);
 };
 
 //получаение данных о пользователе
@@ -93,9 +83,7 @@ const getUserDataAPI = () => {
     headers: {
       authorization: apiConfig.token,
     },
-  }).then((res) => {
-    return checkResponse(res);
-  });
+  }).then(checkResponse);
 };
 
 //получение списка карточек с сервера
@@ -104,9 +92,7 @@ const getCardsAPI = () => {
     headers: {
       authorization: apiConfig.token,
     },
-  }).then((res) => {
-    return checkResponse(res);
-  });
+  }).then(checkResponse);
 };
 
 export {

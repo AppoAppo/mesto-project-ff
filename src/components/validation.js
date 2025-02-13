@@ -79,19 +79,31 @@ const clearValidation = (formElement, validationConfig) => {
   });
 };
 
-const getErrorElement = (formElement, inputElement) => {
-  return formElement.querySelector(`.popup__input_${inputElement.name}-error`);
+const getErrorElement = (formElement, inputElement, validationConfig) => {
+  return formElement.querySelector(
+    validationConfig.errorElementMask.prefix +
+      inputElement.name +
+      validationConfig.errorElementMask.suffix
+  );
 };
 
 const showInputError = (formElement, inputElement, validationConfig) => {
-  const errorElement = getErrorElement(formElement, inputElement);
+  const errorElement = getErrorElement(
+    formElement,
+    inputElement,
+    validationConfig
+  );
   inputElement.classList.add(validationConfig.inputErrorClass);
   errorElement.textContent = inputElement.validationMessage;
   errorElement.classList.add(validationConfig.errorClass);
 };
 
 const hideInputError = (formElement, inputElement, validationConfig) => {
-  const errorElement = getErrorElement(formElement, inputElement);
+  const errorElement = getErrorElement(
+    formElement,
+    inputElement,
+    validationConfig
+  );
   inputElement.classList.remove(validationConfig.inputErrorClass);
   errorElement.classList.remove(validationConfig.errorClass);
   errorElement.textContent = "";
